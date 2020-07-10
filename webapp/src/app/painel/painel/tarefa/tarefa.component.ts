@@ -81,6 +81,7 @@ export class TarefaComponent implements OnInit {
   }
 
   openDialogAddTarefa() : void {
+    this.panelOpenState = true;
     console.log('add tarefa');
 
     const dialogRef = this.dialog.open(TarefaddComponent);
