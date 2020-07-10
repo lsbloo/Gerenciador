@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class TarefaddComponent implements OnInit {
 
   formCreateTarefa: FormGroup
+  
   constructor(public dialogRef: MatDialogRef<TarefaddComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Object,private formBuilder: FormBuilder,private painelService: PainelService ,private apiService: ApiService, public router: Router) { }
 

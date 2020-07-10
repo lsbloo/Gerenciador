@@ -26,12 +26,13 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { PainelService } from './painel.service';
+import { TarefaeditComponent } from './dialog/tarefaedit/tarefaedit.component';
 
 
 
 
 @NgModule({
-  declarations: [PainelComponent, TarefaComponent, AgendaddComponent, TarefaddComponent],
+  declarations: [PainelComponent, TarefaComponent, AgendaddComponent, TarefaddComponent, TarefaeditComponent],
   imports: [
     CommonModule,
     MatExpansionModule,

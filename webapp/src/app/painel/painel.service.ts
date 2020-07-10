@@ -31,4 +31,13 @@ export class PainelService {
   deleteTarefa(id_tarefa: number): void {
     this.apiService.removeTask(id_tarefa);
   }
+
+  getTarefaById(id_tarefa): Observable<TarefaList> {
+    return this.apiService.findTarefaById(id_tarefa);
+  }
+
+
+  editTarefaById(id_tarefa: number, task: Task, conclusion: boolean): void {
+    this.apiService.editTarefa(id_tarefa,task, conclusion);
+  }
 }

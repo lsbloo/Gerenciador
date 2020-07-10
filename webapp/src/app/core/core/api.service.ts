@@ -38,6 +38,23 @@ export class ApiService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+
+  editTarefa(id_tarefa: number, task: Task, conclusion: boolean): void {
+    let url = ApiService.URL_CRUD_TASK;
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let  paramsx = new HttpParams();
+    paramsx = paramsx.append('id_task', id_tarefa.toString());
+    paramsx = paramsx.append("conclusion",conclusion.toString());
+
+    this.http.put(url,task,{headers: headers, params: paramsx, observe: 'response'}).subscribe(response =>{
+      if(response.status === 202){
+        this.senderResponse.emit('update_task')
+      }
+    }, () => {
+      this.senderBadRequest.emit('bad_request');
+    });
+  }
+
   findTarefasByAgenda(id_calendar: number): Observable<TarefasList[]> {
     let url = ApiService.URL_CRUD_CALENDAR;
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -50,6 +67,17 @@ export class ApiService {
     return this.http.get<TarefasList[]>(url,{headers: headers, params: paramsx});
       
   }
+
+  findTarefaById(id_tarefa: number): Observable<TarefaList> {
+    let url = ApiService.URL_CRUD_TASK;
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let  paramsx = new HttpParams();
+    paramsx = paramsx.append('id', id_tarefa.toString());
+    return this.http.get<TarefaList>(url,{headers: headers, params: paramsx});
+  
+  }
+
+
   findAllAgenda(): void {
     let url = ApiService.URL_CRUD_CALENDAR_ALL;
     const headers = new HttpHeaders().set('Content-Type', 'application/json');

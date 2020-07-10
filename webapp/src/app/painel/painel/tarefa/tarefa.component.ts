@@ -9,6 +9,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { PainelService } from '../../painel.service';
 import { ApiService } from 'src/app/core/core/api.service';
 import { Router } from '@angular/router';
+import { TarefaeditComponent } from '../../dialog/tarefaedit/tarefaedit.component';
 
 export interface AgendaS{
   data: string,
@@ -88,6 +89,9 @@ export class TarefaComponent implements OnInit {
       console.log('q');
     });
   }
+  openDialogRemove(): void {
+    
+  }
 
   openDialogAddTarefa(id_agenda: number) : void {
     this.panelOpenState = false;
@@ -116,4 +120,13 @@ export class TarefaComponent implements OnInit {
     })
   }
 
+  editarTarefa(id_tarefa: number): void {
+   
+    const dialogRef = this.dialog.open(TarefaeditComponent,
+      {data: {id_tarefa: id_tarefa}});
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('q edit');
+    });
+  }
 }

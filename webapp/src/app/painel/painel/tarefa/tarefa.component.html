@@ -1,12 +1,19 @@
 <mat-toolbar>
     <span>Minhas Tarefas</span>
     <span class="example-spacer"></span>
-    <button mat-button  (click)="openDialog()" mat-raised-button #tooltip="matTooltip"
+    <button  style="margin-right: 10px;" mat-button  (click)="openDialog()" mat-raised-button #tooltip="matTooltip"
         matTooltip="Adicionar Agenda."
         [matTooltipPosition]="position.value"
         matTooltipHideDelay="1000">
             <mat-icon>add_circle_outline</mat-icon>
         </button>
+    
+    <button  mat-button  (click)="openDialogRemove()" mat-raised-button #tooltip="matTooltip"
+      matTooltip="Deletar Agenda."
+      [matTooltipPosition]="position.value"
+      matTooltipHideDelay="1000">
+          <mat-icon>delete</mat-icon>
+      </button>
   </mat-toolbar>
   
   <div>
@@ -55,6 +62,7 @@
                     <button class="spacer-bottoms" mat-button   mat-raised-button #tooltip="matTooltip"
                         matTooltip="Editar Tarefa."
                         [matTooltipPosition]="position.value"
+                        (click)="editarTarefa(item.id)"
                             matTooltipHideDelay="1000">
                             <mat-icon>create</mat-icon>
                     </button>

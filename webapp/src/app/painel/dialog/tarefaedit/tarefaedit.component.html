@@ -1,0 +1,23 @@
+<mat-card class="card">
+    <mat-card-header>
+       <mat-card-title>Edição Tarefa.</mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="formEditTarefa"  (ngSubmit)="editTarefa()">
+    <mat-card-content>     
+            <mat-form-field appearance="outline" class="input_region">
+                <mat-label>Nome</mat-label>
+                <input formControlName="name" matInput placeholder="">
+                <mat-icon matSuffix>view_agenda</mat-icon>
+            </mat-form-field>
+          <br> 
+          <mat-form-field appearance="outline" class="text">
+            <mat-label>Descrição</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+            <mat-icon matSuffix>description</mat-icon>
+          </mat-form-field>
+      </mat-card-content>  
+      <mat-card-actions>
+        <button class="btn btn-warning" type="submit" style="width: 100%;">Editar</button>
+      </mat-card-actions>
+    </form>
+</mat-card>
