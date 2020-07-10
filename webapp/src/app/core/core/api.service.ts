@@ -23,6 +23,7 @@ export class ApiService {
   static readonly URL_HOST="/api/v1/";
   static readonly URL_CRUD_CALENDAR=ApiService.URL_HOST+"calendary";
   static readonly URL_CRUD_CALENDAR_ALL = ApiService.URL_CRUD_CALENDAR + "/all";
+  static readonly URL_CRUD_TASK = ApiService.URL_HOST+"task";
 
   senderResponse = new EventEmitter<string>();
   senderBadRequest = new EventEmitter<string>();
@@ -70,12 +71,40 @@ export class ApiService {
         this.senderBadRequest.emit('bad_request');
       });
   }
+
+  createTask(task: Task): void{
+    let url = ApiService.URL_CRUD_TASK;
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    this.http.post(url,task,{headers: headers, observe: 'response'})
+    .subscribe(response => {
+
+      if(response.status === 202){
+        this.senderResponse.emit('created_tarefa');
+      }
+    }, () => {
+      this.senderBadRequest.emit('bad_request');
+    });
+  }
+
+  removeTask(id_task: number): void {
+    let url = ApiService.URL_CRUD_TASK;
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let paramsx = new HttpParams();
+    paramsx = paramsx.append("id", id_task.toString());
+
+    this.http.delete(url,{headers: headers, params: paramsx, observe: 'response'}).subscribe(response =>{
+      if(response.status === 202){
+        this.senderResponse.emit('remove_task');
+      }else{
+        this.senderBadRequest.emit('bad_request');
+      }
+    })
+  }
   createAgenda(agenda: Calendar): void{
     let url = ApiService.URL_CRUD_CALENDAR;
 
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    console.log(agenda.date);
-    console.log(agenda.description);
 
     this.http.post(url,agenda,{headers: headers, observe: 'response'}).subscribe(response => {
 

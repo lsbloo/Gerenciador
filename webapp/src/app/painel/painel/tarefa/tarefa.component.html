@@ -20,7 +20,7 @@
             <mat-panel-description>
               <h3>{{tarefa.titulo}}</h3>
             </mat-panel-description>
-            <button (click)="openDialogAddTarefa()" style="margin-right: 30px;" mat-button   mat-raised-button #tooltip="matTooltip"
+            <button (click)="openDialogAddTarefa(tarefa.id)" style="margin-right: 30px;" mat-button   mat-raised-button #tooltip="matTooltip"
                         matTooltip="Criar Tarefa."
                         [matTooltipPosition]="position.value"
                             matTooltipHideDelay="500"
@@ -62,6 +62,7 @@
                     <button style="margin-top: 5px;" class="spacer-bottoms" mat-button   mat-raised-button #tooltip="matTooltip"
                     matTooltip="Remover Tarefa."
                     [matTooltipPosition]="position.value"
+                    (click)="removerTarefa(item.id)"
                         matTooltipHideDelay="1000">
                         <mat-icon>delete_forever</mat-icon> 
                     </button>      
