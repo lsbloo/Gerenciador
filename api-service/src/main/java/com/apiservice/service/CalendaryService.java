@@ -3,6 +3,7 @@ package com.apiservice.service;
 import com.apiservice.domain.Calendary;
 import com.apiservice.domain.Tarefa;
 import com.apiservice.dto.CalendaryDTO;
+import com.apiservice.dto.CalendaryListDTO;
 import com.apiservice.dto.TarefaResponseDTO;
 import com.apiservice.dto.TaskCalendarDTO;
 import com.apiservice.repository.CalendaryRepository;
@@ -42,8 +43,6 @@ public class CalendaryService implements CalendaryServiceInterface {
             Calendary calendary = new Calendary();
             calendary.setDate(calendaryDTO.getDate());
             calendary.setDescription(calendaryDTO.getDescription());
-            calendary.setMonth(calendaryDTO.getMonth());
-
             this.calendaryRepository.save(calendary);
             return true;
         }
@@ -80,12 +79,12 @@ public class CalendaryService implements CalendaryServiceInterface {
     }
 
     @Override
-    public List<CalendaryDTO> findAllCalendary() {
+    public List<CalendaryListDTO> findAllCalendary() {
        List<Calendary> calendaryList = this.calendaryRepository.findAllCalendaryList();
        if(calendaryList.size()==0) return null;
-       List<CalendaryDTO> dtoList = new ArrayList<>();
+       List<CalendaryListDTO> dtoList = new ArrayList<>();
        calendaryList.forEach(item -> dtoList.add(
-               new CalendaryDTO(item.getMonth(),item.getDescription(),item.getDate())
+               new CalendaryListDTO(item.getId(),item.getDescription(),item.getDate())
        ));
        return dtoList;
     }

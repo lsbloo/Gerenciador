@@ -1,0 +1,5 @@
+api-swagger; localhost:8085/swagger-ui.html
+
+h2-console: localhost:8085/h2-console/
+
+h2-user: username: admin, password: admin

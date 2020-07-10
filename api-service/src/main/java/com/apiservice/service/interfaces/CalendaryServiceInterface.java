@@ -3,6 +3,7 @@ package com.apiservice.service.interfaces;
 
 import com.apiservice.domain.Calendary;
 import com.apiservice.dto.CalendaryDTO;
+import com.apiservice.dto.CalendaryListDTO;
 import com.apiservice.dto.TaskCalendarDTO;
 
 import java.util.List;
@@ -37,5 +38,5 @@ public interface CalendaryServiceInterface {
      * retorna uma lista de agendas;
      * @return
      */
-    List<CalendaryDTO> findAllCalendary();
+    List<CalendaryListDTO> findAllCalendary();
 }

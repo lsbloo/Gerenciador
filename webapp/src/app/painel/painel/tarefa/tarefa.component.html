@@ -1,0 +1,58 @@
+<mat-toolbar>
+    <span>Minhas Tarefas</span>
+    <span class="example-spacer"></span>
+    <button mat-button  (click)="openDialog()" mat-raised-button #tooltip="matTooltip"
+        matTooltip="Adicionar Agenda."
+        [matTooltipPosition]="position.value"
+        matTooltipHideDelay="1000">
+            <mat-icon>add_circle_outline</mat-icon>
+        </button>
+  </mat-toolbar>
+  
+  <div>
+    <mat-accordion *ngFor="let tarefa of agenda">
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                             (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{tarefa.data}}
+            </mat-panel-title>
+            <mat-panel-description>
+              {{tarefa.titulo}}
+            </mat-panel-description>
+            <button (click)="openDialogAddTarefa()" style="margin-right: 30px;" mat-button   mat-raised-button #tooltip="matTooltip"
+                        matTooltip="Criar Tarefa."
+                        [matTooltipPosition]="position.value"
+                            matTooltipHideDelay="500">
+                            <mat-icon>add</mat-icon>
+            </button>
+          </mat-expansion-panel-header>
+          <div>
+              <section class="example-section" *ngFor="let item of tarefa.descricao">
+                  <div>
+                    <mat-checkbox class="example-margin" style="width: 100%;" [(ngModel)]="item.check">{{item.item}} <span class="badge badge-secondary">{{item.descricao}}</span></mat-checkbox>
+                    
+                    
+                    
+                    <button class="spacer-bottoms" mat-button   mat-raised-button #tooltip="matTooltip"
+                        matTooltip="Editar Tarefa."
+                        [matTooltipPosition]="position.value"
+                            matTooltipHideDelay="1000">
+                            <mat-icon>create</mat-icon>
+                    </button>
+                    <br>
+                    <button style="margin-top: 5px;" class="spacer-bottoms" mat-button   mat-raised-button #tooltip="matTooltip"
+                    matTooltip="Remover Tarefa."
+                    [matTooltipPosition]="position.value"
+                        matTooltipHideDelay="1000">
+                        <mat-icon>delete_forever</mat-icon> 
+                    </button>      
+                    
+                </div>
+                    
+                     
+              </section>  
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>      
+  </div>

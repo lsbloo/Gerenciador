@@ -28,7 +28,7 @@ public class CalendaryValidator {
 
     public Validator<CalendaryDTO> checkExistence(){
       return(result, calendar) -> {
-          Calendary calendary1 = this.calendaryRepository.getCalendarByMonthAndDate(calendar.getMonth(),calendar.getDate());
+          Calendary calendary1 = this.calendaryRepository.getCalendarByMonthAndDate(calendar.getDescription(),calendar.getDate());
           if(calendary1 != null){
               result.error("error");
           }else{

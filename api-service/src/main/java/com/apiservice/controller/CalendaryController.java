@@ -3,6 +3,7 @@ package com.apiservice.controller;
 
 import com.apiservice.domain.Calendary;
 import com.apiservice.dto.CalendaryDTO;
+import com.apiservice.dto.CalendaryListDTO;
 import com.apiservice.dto.ResponseDTO;
 import com.apiservice.dto.TaskCalendarDTO;
 import com.apiservice.service.CalendaryService;
@@ -60,7 +61,7 @@ public class CalendaryController {
     @ApiOperation(value="retorna uma lista de tarefas dado uma agenda especificada")
     public ResponseEntity<TaskCalendarDTO> getTaskByAgenda(@RequestParam("id") Integer id){
         TaskCalendarDTO dto = this.calendaryService.getTaskByCalendar(id);
-        if(dto == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        if(dto == null) return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
         if(dto.getTarefaList().size() != 0){
             return  ResponseEntity.status(HttpStatus.ACCEPTED).body(dto);
         }
@@ -70,7 +71,7 @@ public class CalendaryController {
     @GetMapping(value="/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value="retorna uma lista de agendas")
     public ResponseEntity<Object> getAllAgenda(){
-        List<CalendaryDTO> calendaryList = this.calendaryService.findAllCalendary();
+        List<CalendaryListDTO> calendaryList = this.calendaryService.findAllCalendary();
         if(calendaryList==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(calendaryList);
     }

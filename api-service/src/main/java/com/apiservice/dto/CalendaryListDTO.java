@@ -7,17 +7,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CalendaryDTO {
-
-
+public class CalendaryListDTO {
 
     private String description;
 
     private String date;
+    private Integer id;
 
-
-    public CalendaryDTO(String description, String date){
+    public CalendaryListDTO(Integer id ,String description, String date){
         this.description=description;
         this.date= date;
+        this.id=id;
     }
 }

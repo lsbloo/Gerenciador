@@ -14,8 +14,8 @@ public interface CalendaryRepository extends CrudRepository<Calendary, Integer> 
     @Query(value = "select * from calendary",nativeQuery = true)
     List<Calendary> findAllCalendaryList();
 
-    @Query(value="select * from calendary where month=:month and date=:date", nativeQuery = true)
-    Calendary getCalendarByMonthAndDate(@Param("month") String moth, @Param("date") String date);
+    @Query(value="select * from calendary where month=:description and date=:date", nativeQuery = true)
+    Calendary getCalendarByMonthAndDate(@Param("description") String description, @Param("date") String date);
 
     @Query(value="select * from calendary where id=:id", nativeQuery=true)
     Calendary getCalendarById(@Param("id") Integer id);
