@@ -10,8 +10,9 @@ import { Router } from '@angular/router';
 import { catchError, retry } from 'rxjs/operators'
 import { from } from 'rxjs';
 import { THIS_EXPR, ArrayType } from '@angular/compiler/src/output/output_ast';
-import { Task, TaskList } from './models/Task';
+import { Task, TarefaList ,TarefasList} from './models/Task';
 import { Calendar, CalendarList } from './models/Calendar';
+import { Agenda } from 'src/app/painel/painel/tarefa/tarefa.component';
 
 
 @Injectable({
@@ -26,7 +27,7 @@ export class ApiService {
   senderResponse = new EventEmitter<string>();
   senderBadRequest = new EventEmitter<string>();
   senderDataCalendarList = new EventEmitter<CalendarList[]>();
-  senderDataTaskList = new EventEmitter<TaskList[]>();
+  senderDataTaskList = new EventEmitter<TarefaList[]>();
 
 
   static readonly httpOption = {
@@ -36,29 +37,17 @@ export class ApiService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  findTarefasByAgenda(id_calendar: number): void {
+  findTarefasByAgenda(id_calendar: number): Observable<TarefasList[]> {
     let url = ApiService.URL_CRUD_CALENDAR;
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
     let  paramsx = new HttpParams();
     paramsx = paramsx.append('id', id_calendar.toString());
-    let arrayListTask = new Array<TaskList>();
+    console.log(id_calendar);
 
-    this.http.get(url,{headers: headers, params: paramsx,observe: 'response'}).subscribe(
-      response => {
-        console.log(response.body);
-        if(Array.isArray(response.body)){
-          for(let index = 0 ; index < response.body.length; index++){
-            const element = response.body[index];
-
-            arrayListTask.push(new TaskList(element['id'],element['name'],element['description'],element['conclusion']));
-          }
-          this.senderDataTaskList.emit(arrayListTask);
-        }else{
-          this.senderDataTaskList.emit(null);
-        }
-      }
-    )
+    let arrayListTask = new Array<TarefaList>();
+    return this.http.get<TarefasList[]>(url,{headers: headers, params: paramsx});
+      
   }
   findAllAgenda(): void {
     let url = ApiService.URL_CRUD_CALENDAR_ALL;

@@ -12,11 +12,21 @@ export class Task {
     }
     
 }
-export class TaskList{
+export class TarefasList{
+    calendar_id: number
+    tarefasList: TarefaList
+
+    constructor(calendar_id: number, tarefas: TarefaList){
+        this.calendar_id=calendar_id
+        this.tarefasList = tarefas
+    }
+}
+export class TarefaList{
     conclusion: boolean
     description: string
     id: number
     name: string
+    
 
     constructor(id: number, name: string, description: string, conclusion: boolean){
         this.id=id
