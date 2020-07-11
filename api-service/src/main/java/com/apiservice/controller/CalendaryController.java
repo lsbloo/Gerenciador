@@ -45,9 +45,9 @@ public class CalendaryController {
 
     @DeleteMapping(value="", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value="Permite a remoção de uma agenda e o seu conjunto de tarefas.")
-    public ResponseEntity<ResponseDTO> deleteAgendador(@RequestParam("id") Integer id){
+    public ResponseEntity<ResponseDTO> deleteAgendador(@RequestParam("data") String data){
 
-        boolean result = this.calendaryService.removeCalendar(id);
+        boolean result = this.calendaryService.removeCalendar(data);
         if(result){
             ResponseDTO dto = new ResponseDTO("Calendary deleted successful");
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(dto);

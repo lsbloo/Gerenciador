@@ -21,10 +21,10 @@ public interface CalendaryServiceInterface {
 
     /**
      * Permite a remoção de uma agenda, ao remover todas as tarefas concluidas ou não, são removidas também.
-     * @param id_calendar
+     * @param
      * @return
      */
-    boolean removeCalendar(Integer id_calendar);
+    boolean removeCalendar(String data);
 
 
     /**

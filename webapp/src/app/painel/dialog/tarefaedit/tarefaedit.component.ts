@@ -6,6 +6,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { PainelService } from '../../painel.service';
 import { Router } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import {SuccessComponent} from '../success/success.component';
 
 @Component({
   selector: 'app-tarefaedit',
@@ -18,7 +19,7 @@ export class TarefaeditComponent implements OnInit {
   datab: Object;
 
   constructor(public dialogRef: MatDialogRef<TarefaeditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Object,private formBuilder: FormBuilder,private painelService: PainelService ,private apiService: ApiService, public router: Router) { 
+    @Inject(MAT_DIALOG_DATA) public data: Object,public dialog: MatDialog,private formBuilder: FormBuilder,private painelService: PainelService ,private apiService: ApiService, public router: Router) { 
     
     }
 
@@ -46,7 +47,11 @@ export class TarefaeditComponent implements OnInit {
 
       this.apiService.senderResponse.subscribe(response => {
         if(response === 'update_task'){
-          alert('Tarefa editada com sucesso');
+          const dialogRefSucess = this.dialog.open(SuccessComponent);
+          dialogRefSucess.afterClosed().subscribe(result => {
+            dialogRefSucess.close();
+            this.dialogRef.close();
+          });
         }
       })
   });

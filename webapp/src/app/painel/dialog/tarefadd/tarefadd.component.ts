@@ -6,6 +6,9 @@ import {Task} from '../../../core/core/models/Task';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog'
 import { PainelService } from '../../painel.service';
 import { Router } from '@angular/router';
+import {SuccessComponent} from '../success/success.component';
+import { FailureComponent } from '../failure/failure.component';
+
 @Component({
   selector: 'app-tarefadd',
   templateUrl: './tarefadd.component.html',
@@ -14,9 +17,9 @@ import { Router } from '@angular/router';
 export class TarefaddComponent implements OnInit {
 
   formCreateTarefa: FormGroup
-  
+
   constructor(public dialogRef: MatDialogRef<TarefaddComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Object,private formBuilder: FormBuilder,private painelService: PainelService ,private apiService: ApiService, public router: Router) { }
+    @Inject(MAT_DIALOG_DATA) public data: Object, public dialog: MatDialog,private formBuilder: FormBuilder,private painelService: PainelService ,private apiService: ApiService, public router: Router) { }
 
   ngOnInit(): void {
   this.generateForm();
@@ -37,14 +40,21 @@ export class TarefaddComponent implements OnInit {
     this.painelService.createTarefa(task);
     this.apiService.senderResponse.subscribe(response => {
       if(response === "created_tarefa"){
-        alert('Tarefa criada com sucesso');
-        this.router.navigate(['painel/tarefas']);
-        this.dialogRef.close()
+        const dialogRefSucess = this.dialog.open(SuccessComponent);
+        dialogRefSucess.afterClosed().subscribe(result => {
+          dialogRefSucess.close();
+          this.dialogRef.close()
+        });
+        
       }
     });
     this.apiService.senderBadRequest.subscribe(response => {
       if(response === 'bad_request'){
-        alert('Não foi possivel criar esta tarefa.');
+        const dialogRefFailure = this.dialog.open(FailureComponent);
+        dialogRefFailure.afterClosed().subscribe(result => {
+          dialogRefFailure.close();
+          this.dialogRef.close()
+        });
       }
     })
   }

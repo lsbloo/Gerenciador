@@ -26,10 +26,23 @@ public class CalendaryValidator {
         };
     }
 
+    public Validator<String> checkExistenceD(){
+        return(result,data) -> {
+            Calendary calendary1 = this.calendaryRepository.getCalendarByDate(data);
+            if(calendary1 != null){
+
+                result.ok("okay");
+            }else{
+                System.err.println("error");
+                result.error("error");
+            }
+        };
+    }
     public Validator<CalendaryDTO> checkExistence(){
       return(result, calendar) -> {
-          Calendary calendary1 = this.calendaryRepository.getCalendarByMonthAndDate(calendar.getDescription(),calendar.getDate());
+          Calendary calendary1 = this.calendaryRepository.getCalendarByDate(calendar.getDate());
           if(calendary1 != null){
+              System.err.println("error");
               result.error("error");
           }else{
               result.ok("okay");

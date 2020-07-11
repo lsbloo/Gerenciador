@@ -42,16 +42,16 @@
                     <div>
                     <mat-checkbox class="example-margin" style="width: 100%;" [(ngModel)]="item.conclusion">
                       <div *ngIf="item.conclusion">
-                        <label><u>{{item.name}}</u></label>
-                        <span class="badge badge-secondary">
-                          <u>{{item.description}}</u>
-                        </span>
+                        <label><del>{{item.name}}</del></label>
+                        <sup>
+                          (<del>{{item.description}}</del>)
+                        </sup>
                       </div>
                       <div *ngIf="!item.conclusion">
                         <label>{{item.name}}</label>
-                        <span class="badge badge-secondary">
+                        <sup>
                           {{item.description}}
-                        </span>
+                        </sup>
                       </div>
                       
                     </mat-checkbox>

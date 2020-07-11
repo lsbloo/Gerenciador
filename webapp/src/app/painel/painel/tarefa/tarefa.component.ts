@@ -11,6 +11,8 @@ import { ApiService } from 'src/app/core/core/api.service';
 import { Router } from '@angular/router';
 import { TarefaeditComponent } from '../../dialog/tarefaedit/tarefaedit.component';
 import { RemoveCalendarComponent } from '../../dialog/remove-calendar/remove-calendar.component';
+import {SuccessComponent} from '../../dialog/success/success.component';
+import { FailureComponent } from '../../dialog/failure/failure.component';
 
 export interface AgendaS{
   data: string,
@@ -83,7 +85,7 @@ export class TarefaComponent implements OnInit {
   ngOnInit(): void {
     this.refreshData();
   }
-  
+
   openDialog(): void {
     const dialogRef = this.dialog.open(AgendaddComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -99,11 +101,8 @@ export class TarefaComponent implements OnInit {
 
   openDialogAddTarefa(id_agenda: number) : void {
     this.panelOpenState = false;
-    console.log(id_agenda);
-
     const dialogRef = this.dialog.open(TarefaddComponent,
       {data:{id_calendar: id_agenda}});
-
     dialogRef.afterClosed().subscribe(result => {
       this.refreshData();
     });
@@ -113,13 +112,20 @@ export class TarefaComponent implements OnInit {
     this.painelService.deleteTarefa(id_tarefa);
     this.apiService.senderResponse.subscribe(data => {
       if(data ==='remove_task'){
-        alert('Tarefa deletada com successo');
-        this.refreshData();
+        const dialogRefSucess = this.dialog.open(SuccessComponent);
+        dialogRefSucess.afterClosed().subscribe(result => {
+          dialogRefSucess.close();
+          this.refreshData();
+        });
       }
     });
     this.apiService.senderBadRequest.subscribe(data => {
       if(data === 'bad_request'){
-        alert('Não foi possivel deletar a tarefa.');
+        const dialogRefFailure = this.dialog.open(FailureComponent);
+        dialogRefFailure.afterClosed().subscribe(result => {
+          dialogRefFailure.close();
+          this.refreshData();
+        });
       }
     })
   }
@@ -130,7 +136,7 @@ export class TarefaComponent implements OnInit {
       {data: {id_tarefa: id_tarefa}});
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('q edit');
+      this.refreshData();
     });
   }
 }

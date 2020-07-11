@@ -50,15 +50,16 @@ public class CalendaryService implements CalendaryServiceInterface {
     }
 
     @Override
-    public boolean removeCalendar(Integer id_calendar) {
-        Result result = new ValidatorBuilder<Integer>()
-                .apply(this.calendaryValidator.checkExistenceById())
-                .validate(id_calendar);
+    public boolean removeCalendar(String  data) {
+        Result result = new ValidatorBuilder<String>()
+                .apply(this.calendaryValidator.checkExistenceD())
+                .validate(data);
 
         if(result.ok()){
-            List<Tarefa> tarefaList = this.tarefaRepository.getTarefasByCalendarId(id_calendar);
+            Calendary c = this.calendaryRepository.getCalendarByDate(data);
+            List<Tarefa> tarefaList = this.tarefaRepository.getTarefasByCalendarId(c.getId());
             tarefaList.forEach(item -> this.tarefaRepository.delete(item));
-            this.calendaryRepository.delete(this.calendaryRepository.getCalendarById(id_calendar));
+            this.calendaryRepository.delete(this.calendaryRepository.getCalendarById(c.getId()));
             return true;
         }
         return false;
