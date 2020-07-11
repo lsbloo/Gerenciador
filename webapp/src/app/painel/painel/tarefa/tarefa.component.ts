@@ -10,6 +10,7 @@ import { PainelService } from '../../painel.service';
 import { ApiService } from 'src/app/core/core/api.service';
 import { Router } from '@angular/router';
 import { TarefaeditComponent } from '../../dialog/tarefaedit/tarefaedit.component';
+import { RemoveCalendarComponent } from '../../dialog/remove-calendar/remove-calendar.component';
 
 export interface AgendaS{
   data: string,
@@ -82,15 +83,18 @@ export class TarefaComponent implements OnInit {
   ngOnInit(): void {
     this.refreshData();
   }
+  
   openDialog(): void {
     const dialogRef = this.dialog.open(AgendaddComponent);
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('q');
+      this.refreshData();
     });
   }
   openDialogRemove(): void {
-    
+    const dialogRef = this.dialog.open(RemoveCalendarComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      this.refreshData();
+    });
   }
 
   openDialogAddTarefa(id_agenda: number) : void {

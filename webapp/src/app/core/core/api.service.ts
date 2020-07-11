@@ -115,6 +115,20 @@ export class ApiService {
     });
   }
 
+  removeAgenda(data: string): void {
+    let url = ApiService.URL_CRUD_CALENDAR;
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    let paramsx = new HttpParams();
+    paramsx = paramsx.append("data", data);
+
+    this.http.delete(url,{headers: headers, params: paramsx, observe: 'response'}).subscribe(response => {
+      if(response.status === 202){
+        this.senderResponse.emit('calendary_deleted');
+      }
+    }, () => {
+      this.senderBadRequest.emit('bad_request');
+    });
+  }
   removeTask(id_task: number): void {
     let url = ApiService.URL_CRUD_TASK;
     const headers = new HttpHeaders().set('Content-Type', 'application/json');

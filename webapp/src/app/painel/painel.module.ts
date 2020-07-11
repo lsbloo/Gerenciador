@@ -27,12 +27,15 @@ import {MatInputModule} from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { PainelService } from './painel.service';
 import { TarefaeditComponent } from './dialog/tarefaedit/tarefaedit.component';
+import { SuccessComponent } from './dialog/success/success.component';
+import { RemoveCalendarComponent } from './dialog/remove-calendar/remove-calendar.component';
+import { FailureComponent } from './dialog/failure/failure.component';
 
 
 
 
 @NgModule({
-  declarations: [PainelComponent, TarefaComponent, AgendaddComponent, TarefaddComponent, TarefaeditComponent],
+  declarations: [PainelComponent, TarefaComponent, AgendaddComponent, TarefaddComponent, TarefaeditComponent, SuccessComponent, RemoveCalendarComponent, FailureComponent],
   imports: [
     CommonModule,
     MatExpansionModule,

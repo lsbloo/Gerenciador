@@ -7,6 +7,8 @@ import {AgendaS} from '../../../painel/painel/tarefa/tarefa.component';
 import { DatePipe } from '@angular/common';
 import { Calendar } from 'src/app/core/core/models/Calendar';
 import { PainelService } from '../../painel.service';
+import {SuccessComponent} from '../success/success.component';
+import {FailureComponent} from '../failure/failure.component';
 
 @Component({
   selector: 'app-agendadd',
@@ -20,7 +22,7 @@ export class AgendaddComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder
     , public dialogRef: MatDialogRef<AgendaddComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: AgendaS, private painelService: PainelService, private apiService: ApiService) { 
+    @Inject(MAT_DIALOG_DATA) public data: AgendaS, public dialog: MatDialog,private painelService: PainelService, private apiService: ApiService) { 
     
   }
 
@@ -40,13 +42,18 @@ export class AgendaddComponent implements OnInit {
     this.painelService.createAgenda(new Calendar(date_inf,description));
     this.apiService.senderResponse.subscribe(data => {
       if(data === 'created_agenda'){
-        alert('Agenda criada com sucesso')
-        this.dialogRef.close();
+        const dialogRefSucess = this.dialog.open(SuccessComponent);
+        dialogRefSucess.afterClosed().subscribe(result => {
+          this.dialogRef.close();
+        });
       }
     });
     this.apiService.senderBadRequest.subscribe(data => {
       if(data === 'bad_request'){
-        alert('Não foi possivel criar a agenda, tente novamente');
+        const dialogRefFail = this.dialog.open(FailureComponent);
+        dialogRefFail.afterClosed().subscribe(result => {
+            this.dialogRef.close();
+          });
       }
     })
   }

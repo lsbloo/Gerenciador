@@ -40,4 +40,9 @@ export class PainelService {
   editTarefaById(id_tarefa: number, task: Task, conclusion: boolean): void {
     this.apiService.editTarefa(id_tarefa,task, conclusion);
   }
+
+  deleteAgenda(data: string): void{
+    this.apiService.removeAgenda(data);
+  }
+  
 }
